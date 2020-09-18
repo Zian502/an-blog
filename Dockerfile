@@ -8,7 +8,7 @@ FROM nginx:stable-alpine as production-stage
  
 MAINTAINER yuanzhian
  
-COPY --from=build-stage /app/public/ /usr/share/nginx/html
+COPY --from=build-stage /app /usr/share/nginx/html
  
 RUN chown -R nginx:nginx /usr/share/nginx/html
  

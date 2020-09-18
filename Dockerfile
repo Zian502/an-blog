@@ -1,14 +1,17 @@
-# dockerfile
-# build stage
 FROM node:lts-alpine as build-stage
+ 
+COPY . /app/
+ 
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-# production stage
+ 
+RUN npm i && npm run build
+ 
 FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/public /usr/share/nginx/html
+ 
+MAINTAINER yuanzhian
+ 
+COPY --from=build-stage /app/public/ /usr/share/nginx/html
+ 
+RUN chown -R nginx:nginx /usr/share/nginx/html
+ 
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]

@@ -1,10 +1,8 @@
 FROM node:lts-alpine as build-stage
  
-COPY . /app/
+COPY ./public /app/
  
 WORKDIR /app
- 
-RUN npm i && npm run build
  
 FROM nginx:stable-alpine as production-stage
  
